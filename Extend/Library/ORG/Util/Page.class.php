@@ -100,15 +100,15 @@ class Page {
         $upRow          =   $this->nowPage-1;
         $downRow        =   $this->nowPage+1;
         if ($upRow>0){
-            $upPage     =   "<a href='".str_replace('__PAGE__',$upRow,$url)."'>".$this->config['prev']."</a>";
+            $upPage     =   "<li><a href='".str_replace('__PAGE__',$upRow,$url)."'>".$this->config['prev']."</a></li>";
         }else{
-            $upPage     =   '';
+            $upPage     =   "<li><span>".$this->config['prev']."</span></li>";
         }
 
         if ($downRow <= $this->totalPages){
-            $downPage   =   "<a href='".str_replace('__PAGE__',$downRow,$url)."'>".$this->config['next']."</a>";
+            $downPage   =   "<li><a href='".str_replace('__PAGE__',$downRow,$url)."'>".$this->config['next']."</a></li>";
         }else{
-            $downPage   =   '';
+            $downPage   =   "<li><span>".$this->config['next']."</span></li>";
         }
         // << < > >>
         if($nowCoolPage == 1){
@@ -116,8 +116,8 @@ class Page {
             $prePage    =   '';
         }else{
             $preRow     =   $this->nowPage-$this->rollPage;
-            $prePage    =   "<a href='".str_replace('__PAGE__',$preRow,$url)."' >上".$this->rollPage."页</a>";
-            $theFirst   =   "<a href='".str_replace('__PAGE__',1,$url)."' >".$this->config['first']."</a>";
+            $prePage    =   "<li><a href='".str_replace('__PAGE__',$preRow,$url)."' >前".$this->rollPage."页</a></li>";
+            $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >".$this->config['first']."</a></li>";
         }
         if($nowCoolPage == $this->coolPages){
             $nextPage   =   '';
@@ -125,8 +125,8 @@ class Page {
         }else{
             $nextRow    =   $this->nowPage+$this->rollPage;
             $theEndRow  =   $this->totalPages;
-            $nextPage   =   "<a href='".str_replace('__PAGE__',$nextRow,$url)."' >下".$this->rollPage."页</a>";
-            $theEnd     =   "<a href='".str_replace('__PAGE__',$theEndRow,$url)."' >".$this->config['last']."</a>";
+            $nextPage   =   "<li><a href='".str_replace('__PAGE__',$nextRow,$url)."' >后".$this->rollPage."页</a></li>";
+            $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' >".$this->config['last']."</a></li>";
         }
         // 1 2 3 4 5
         $linkPage = "";
@@ -134,19 +134,24 @@ class Page {
             $page       =   ($nowCoolPage-1)*$this->rollPage+$i;
             if($page!=$this->nowPage){
                 if($page<=$this->totalPages){
-                    $linkPage .= "<a href='".str_replace('__PAGE__',$page,$url)."'>".$page."</a>";
+                    $linkPage .= "<li><a href='".str_replace('__PAGE__',$page,$url)."'> ".$page." </a></li>";
                 }else{
                     break;
                 }
             }else{
                 if($this->totalPages != 1){
-                    $linkPage .= "<span class='current'>".$page."</span>";
+                    $linkPage .= "<li><span class='current disabled '> ".$page." </span></li>";
                 }
             }
         }
+        // pagination
+        $start = "<div class='pagination'><ul>";
+        $close = "</ul></div>";
+        $showTotalPages = "<li><span>共 ".$this->totalPages." 页</span></li>";
+
         $pageStr     =   str_replace(
-            array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%'),
-            array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd),$this->config['theme']);
+            array('%start%','%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%','%close%'),
+            array($start,$this->config['header'],$this->nowPage,$this->totalRows,$showTotalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd,$close),$this->config['theme']);
         return $pageStr;
     }
 
