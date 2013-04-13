@@ -116,8 +116,9 @@ class Page {
             $prePage    =   '';
         }else{
             $preRow     =   $this->nowPage-$this->rollPage;
-            $prePage    =   "<li><a href='".str_replace('__PAGE__',$preRow,$url)."' >前".$this->rollPage."页</a></li>";
-            $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >".$this->config['first']."</a></li>";
+            $prePage    =   "<li><a href='".str_replace('__PAGE__',$preRow,$url)."' >前".$this->rollPage."页...</a></li>";
+            // $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >".$this->config['first']."</a></li>";
+            $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >1 ... </a></li>";
         }
         if($nowCoolPage == $this->coolPages){
             $nextPage   =   '';
@@ -125,8 +126,9 @@ class Page {
         }else{
             $nextRow    =   $this->nowPage+$this->rollPage;
             $theEndRow  =   $this->totalPages;
-            $nextPage   =   "<li><a href='".str_replace('__PAGE__',$nextRow,$url)."' >后".$this->rollPage."页</a></li>";
-            $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' >".$this->config['last']."</a></li>";
+            $nextPage   =   "<li><a href='".str_replace('__PAGE__',$nextRow,$url)."' >...后".$this->rollPage."页</a></li>";
+            // $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' >".$this->config['last']."</a></li>";
+            $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' > ... ".$theEndRow."</a></li>";
         }
         // 1 2 3 4 5
         $linkPage = "";
@@ -140,7 +142,7 @@ class Page {
                 }
             }else{
                 if($this->totalPages != 1){
-                    $linkPage .= "<li><span class='current disabled '> ".$page." </span></li>";
+                    $linkPage .= "<li><span class='disabled '>".$page." </span></li>";
                 }
             }
         }
@@ -150,8 +152,9 @@ class Page {
         $showTotalPages = "<li><span>共 ".$this->totalPages." 页</span></li>";
 
         $pageStr     =   str_replace(
-            array('%start%','%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%','%close%'),
-            array($start,$this->config['header'],$this->nowPage,$this->totalRows,$showTotalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd,$close),$this->config['theme']);
+            array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%'),
+            array($this->config['header'],$this->nowPage,$this->totalRows,$showTotalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd),$this->config['theme']);
+        $pageStr = $start . $pageStr . $close;
         return $pageStr;
     }
 
