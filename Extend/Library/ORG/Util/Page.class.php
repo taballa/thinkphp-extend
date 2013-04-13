@@ -116,9 +116,10 @@ class Page {
             $prePage    =   '';
         }else{
             $preRow     =   $this->nowPage-$this->rollPage;
-            $prePage    =   "<li><a href='".str_replace('__PAGE__',$preRow,$url)."' >前".$this->rollPage."页...</a></li>";
+            // $prePage    =   "<li><a href='".str_replace('__PAGE__',$preRow,$url)."' >前".$this->rollPage."页...</a></li>";
+            $prePage    =   "<li><a href='".str_replace('__PAGE__',$preRow,$url)."' >...</a></li>";
             // $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >".$this->config['first']."</a></li>";
-            $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >1 ... </a></li>";
+            $theFirst   =   "<li><a href='".str_replace('__PAGE__',1,$url)."' >1 </a></li>";
         }
         if($nowCoolPage == $this->coolPages){
             $nextPage   =   '';
@@ -126,9 +127,10 @@ class Page {
         }else{
             $nextRow    =   $this->nowPage+$this->rollPage;
             $theEndRow  =   $this->totalPages;
-            $nextPage   =   "<li><a href='".str_replace('__PAGE__',$nextRow,$url)."' >...后".$this->rollPage."页</a></li>";
+            // $nextPage   =   "<li><a href='".str_replace('__PAGE__',$nextRow,$url)."' >...后".$this->rollPage."页</a></li>";
+            $nextPage   =   "<li><a href='".str_replace('__PAGE__',$nextRow,$url)."' >...</a></li>";
             // $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' >".$this->config['last']."</a></li>";
-            $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' > ... ".$theEndRow."</a></li>";
+            $theEnd     =   "<li><a href='".str_replace('__PAGE__',$theEndRow,$url)."' > ".$theEndRow."</a></li>";
         }
         // 1 2 3 4 5
         $linkPage = "";
