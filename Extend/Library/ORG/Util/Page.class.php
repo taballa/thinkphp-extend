@@ -158,6 +158,7 @@ class Page {
             array($this->config['header'],$this->nowPage,$this->totalRows,$showTotalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd),$this->config['theme']);
         $pageStr = $start . $pageStr . $close;
         return $pageStr;
+        
     }
 
 }
